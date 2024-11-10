@@ -4,9 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RavaisiDesktopWPF"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        WindowState="Maximized"
+        mc:Ignorable="d">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="560*"/>
+            <ColumnDefinition Width="571*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Name="TableCanvas" Background="AliceBlue" Grid.ColumnSpan="2" Width="875" Margin="392,106,436,106"/>
+        <Canvas Name="OrderCanvas" Background="Beige" Grid.Column="1" Width="400" Margin="0,106,0,106" HorizontalAlignment="Right"/>
+        <Canvas Name="NavBarCanvas" Background="Azure"  Height="100" Grid.ColumnSpan="2" Margin="10,1,10,963"/>
+        <Canvas Name="SideBarCanvas" Background="CadetBlue" Margin="0,106,0,0" HorizontalAlignment="Left" Width="358"/>
     </Grid>
 </Window>
