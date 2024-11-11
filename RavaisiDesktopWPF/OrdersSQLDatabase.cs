@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -63,7 +64,19 @@ namespace RavaisiDesktopWPF
             }
             return result;
         }
-
+        static public DataRow[] getRowsArray(string sql)
+        {
+            MySqlConnection connect = new MySqlConnection();
+            connect.ConnectionString = dbconnect;   
+            connect.Open();
+            MySqlCommand command = new MySqlCommand();
+            command.Connection = connect;
+            DataTable dt = new DataTable();
+            dt.Load(command.ExecuteReader());//Load the command to a datatable
+            DataRow[] rows = dt.AsEnumerable().ToArray();//convert rows of dt to an array    
+            connect.Close();
+            return rows;
+        }
        
     } 
 }

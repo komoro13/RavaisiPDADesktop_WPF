@@ -176,14 +176,7 @@ namespace RavaisiDesktopWPF
             //of the strings
             orderStrings.Clear(); // Empty the orderStrings ArrayList
             string sql_command = "SELECT * FROM orders WHERE closed=0 AND order_table=" + "'" + this.table + "'" + "ORDER BY order_index DESC"; //MySQL query
-            MySqlConnection connect = new MySqlConnection();
-            connect.ConnectionString = dbconnect;
-            connect.Open();
-            MySqlCommand command = new MySqlCommand(sql_command);
-            command.Connection = connect;
-            DataTable dt = new DataTable();
-            dt.Load(command.ExecuteReader());//Load the command to a datatable
-            DataRow[] rows = dt.AsEnumerable().ToArray();//convert rows of dt to an array
+            DataRow[] rows = OrdersSQLDatabase.getRowsArray(sql_command);
             foreach (DataRow row in rows)
             { 
                 //Add row to orderStrings
