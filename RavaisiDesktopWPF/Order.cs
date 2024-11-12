@@ -13,6 +13,7 @@ using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using Brushes = System.Drawing.Brushes;
 using Point = System.Drawing.Point;
+using PrintDialog = System.Windows.Controls.PrintDialog;
 
 namespace RavaisiDesktopWPF
 {
@@ -314,7 +315,43 @@ namespace RavaisiDesktopWPF
             printPreviewDialog.Document = printDocument; //setting the print document as the document to be prited
             printPreviewDialog.Show();
         }
+        public void Print(String tab)
+        {
+            //This method prints the document
+            String filename;
+            PrintDialog printDialog = new PrintDialog();
+            if (tab.Equals("ALL"))
+            {
+                mergeOrders();
+                printDocument.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("pprnm", 285, 235 + ((int)(getOrderLines() * (font.Size * 2))));
+                printDocument.DocumentName = CreateDocument(this.table, this.order, tab);
+                stringToPrint = getOrderString(this.order);
+                setHeader = false;
+                printDocument.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
+                printDocument.Print();
+                setPrintedAsTrue(tab);
+                return;
+            }
+            String sql_command = "SELECT order_string FROM orders WHERE closed=0 AND order_table='" + this.table + "'";
+            if (!tab.Equals("ALL"))
+                sql_command += " AND order_index=" + tab;
+            string result = OrdersSQLDatabase.GetString(sql_command);
+            this.order = getAddedOrder(result);
+            stringToPrint = getOrderString(this.order);
+            printDocument.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("pprnm", 285, 195 + (int)(getOrderLines() * font.Size));
+            printDocument.DocumentName = CreateDocument(this.table, this.order, tab);
+            printDocument.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
+            printDocument.Print();
+            setPrintedAsTrue(tab);
+            return;
 
+        }
+        private string CreateDocument(string orderTable, ArrayList order, string index)
+        {
+            //This method creates a document of the order to be printed
+            return "C:\\Users\\tbogi\\Desktop\\orders\\" + orderTable + "_" + index + ".docx";
+
+        }
         public int getOrderLines()
         {
             //This method gets the lined of the order in order to calculate the length of the page

@@ -289,5 +289,19 @@ namespace RavaisiDesktopWPF
             }
 
         }
+
+        private void PrintButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (loadedOrder == null)
+                return;
+            loadedOrder.Print(loadedOrder.orderIndex);
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (loadedOrder == null)
+                return;
+            loadedOrder.closeOrder();
+        }
     }
 }
