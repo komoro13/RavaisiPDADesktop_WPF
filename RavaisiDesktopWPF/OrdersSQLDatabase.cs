@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RavaisiDesktopWPF
 {
@@ -54,8 +55,12 @@ namespace RavaisiDesktopWPF
             {
                 while (reader.Read())
                 {
-                    result = result + reader.GetString(0);
+                    result = result + reader[0];
                 }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message + " ");
             }
             finally
             {
@@ -69,10 +74,18 @@ namespace RavaisiDesktopWPF
             MySqlConnection connect = new MySqlConnection();
             connect.ConnectionString = dbconnect;   
             connect.Open();
-            MySqlCommand command = new MySqlCommand();
+            MySqlCommand command = new MySqlCommand(sql);
             command.Connection = connect;
+            command.CommandType = CommandType.Text;
             DataTable dt = new DataTable();
-            dt.Load(command.ExecuteReader());//Load the command to a datatable
+            try
+            {
+                dt.Load(command.ExecuteReader());//Load the command to a datatable
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message + " " + sql);
+            }
             DataRow[] rows = dt.AsEnumerable().ToArray();//convert rows of dt to an array    
             connect.Close();
             return rows;

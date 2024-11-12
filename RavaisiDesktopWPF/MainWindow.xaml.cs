@@ -35,6 +35,22 @@ namespace RavaisiDesktopWPF
     /// Changes to the UI are going to be made as well in order to 
     /// make it more user fiendly and extra features are going to be added as well
     /// </summary>
+    /// 
+    /// To contributors
+    /// There are two ways to contribute to that project
+    /// 1. Start building the next features
+    /// 2. Help enhancing the existing ones
+    /// 
+    /// The current features that need enhancement are
+    /// 1.Autoprint functionality: When autoprint checkbox is checked order has to be printed automatically
+    /// 2.TabItem appearence: TabItem text font has to be bigger
+    /// 3.TabItem product items: Items in the order tab have to be selectable and clickable for the delete product functionality
+    /// 
+    /// Next features are
+    /// 1.Deleting or editing items of an order: Items of the order must be deletable and editable, this requires decoding, editing and encoding the order
+    /// 2.Filters: The side menu in the UI have to contain a sorting and filter menu that is gonna let the user sort and filer the orders displayed
+    /// For example: show only the unread ones, and sort by time
+    /// 3. Navbar: A navbar is going to navigate to the rest windows of the program and its going to consist of 5 buttons, orders, products, history, settings, help
     public partial class MainWindow : Window
     {
 
@@ -65,6 +81,8 @@ namespace RavaisiDesktopWPF
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             init();
+            current_sql_cmd = OPEN_ORDERS_SQL_CMD;
+            Task.Run(()=>checkForChanges());
         }
         private void init()
         {
@@ -74,6 +92,7 @@ namespace RavaisiDesktopWPF
         }
         private int getLastIndex()
         {
+            //This method returns the index of the last order sent in the database
             //This method returns the index of the last order sent in the database
             String sql_command = "SELECT id FROM orders ORDER BY id DESC LIMIT 1";
             string result = OrdersSQLDatabase.GetString(sql_command);
@@ -151,6 +170,7 @@ namespace RavaisiDesktopWPF
             OrdersTabControl.Items.Clear();
             if (!order.mergedOrders)
                 order.mergeOrders();
+            TableLabel.Content = order.table;
             addOrderTab(order.getOrderString(order.order), "Ολη η παραγγελια");          
             foreach (String orderString in order.orderStrings)
             {
@@ -204,39 +224,68 @@ namespace RavaisiDesktopWPF
                 return int.Parse(result);
             else return 0;
         }
-        private int checkForActiveOrders()
+        private bool checkForActiveOrders()
         {
-            //This method returns 1 if active orders are more than
-            //before, 2 if they are less and 0 if they are same
-            if (this.activeOrders > getActiveOrders())
+            if (this.activeOrders != getActiveOrders())
             {
                 this.activeOrders = getActiveOrders();
-                return -1;
+                return true;
             }
-            if (this.activeOrders < getActiveOrders())
-                return 1;
-            return 0;
+            return false;
         }
+        private bool checkForNewOrder()
+        {
+            if (this.lastIndex < getLastIndex())
+            {
+                this.lastIndex = getLastIndex();
+                {
+                    return true;
+                }
+            }
+            //this.lastIndex = getLastIndex();
+            return false;
+        }
+         private int getLoadedOrders()
+         {
+            string result = OrdersSQLDatabase.GetString(COUNT_NEW_ORDERS_SQL_CMD);
+            if (!result.Equals(""))
+                return int.Parse(result);
+            else return 0;
+
+        }
+        private bool checkForLoadedOrders()
+        {
+            if (this.loadedOrders != getLoadedOrders())
+            {
+                this.loadedOrders = getLoadedOrders();
+                return true;
+            }
+            return false;
+        }
+
         private bool checkForChanges()
         {
-            //This is the main loop of a program
-            //it checks the number of the active
-            //orders in the database and if the 
-            //number changes, it displayes a message
-            //produces a sound effect, and refreshes
-            //the loaded orders in the orders 
-            //array using getOrders and next in the UI
-            
             while (true)
             {
-                if (checkForActiveOrders() != 0)
+                if (checkForNewOrder())
                 {
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer("bell.wav");
                     player.Play();
-                    MessageBox.Show("Νεα παραγγελια!");
+                    //MessageBox.Show("Νεα παραγγελια!");
                     Dispatcher.Invoke(new Action(() => getOrders(current_sql_cmd)));
                     Dispatcher.Invoke(new Action(() => showOrders()));
-                }                
+                }
+                if (checkForLoadedOrders())
+                {
+                    Dispatcher.Invoke(new Action(() => getOrders(current_sql_cmd)));
+                    Dispatcher.Invoke(new Action(() => showOrders()));
+                }
+                //if (autoPrintChBox.Checked) printNewOrders();
+                if (checkForActiveOrders())
+                {
+                    Dispatcher.Invoke(new Action(() => getOrders(current_sql_cmd)));
+                    Dispatcher.Invoke(new Action(() => showOrders()));
+                }
             }
 
         }
