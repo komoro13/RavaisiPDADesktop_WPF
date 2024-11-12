@@ -186,6 +186,16 @@ namespace RavaisiDesktopWPF
             return rows.Length;
         }
 
+        public ArrayList getUnprintedIndices()
+        {
+            ArrayList indices = new ArrayList();
+            DataRow[] rows = OrdersSQLDatabase.getRowsArray("SELECT order_index FROM orders WHERE order_table='" + this.table + "' AND printed=0 AND closed=0");
+            foreach(DataRow row in rows)
+            {
+                indices.Add((int)row["order_index"]);
+            }
+            return indices;
+        }
         private Product DecodeProduct(string productString)
         {
             //This method decodes the product string and adds to the products to the Order.order Product ArrayList

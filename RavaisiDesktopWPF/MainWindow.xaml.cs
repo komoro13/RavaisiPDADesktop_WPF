@@ -1,5 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Utilities.IO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -59,6 +61,10 @@ namespace RavaisiDesktopWPF
         private String current_sql_cmd;
         private int loadedOrders;
         private int activeOrders;
+        bool autoprint;
+        private const int OPEN_ORDERS = 0;
+        private const int NEW_ORDERS = 1;
+        int filter;
         Order loadedOrder;
         List<Order> orders;
         String XAMPPPath = "";
@@ -81,7 +87,6 @@ namespace RavaisiDesktopWPF
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             init();
-            current_sql_cmd = OPEN_ORDERS_SQL_CMD;
             Task.Run(()=>checkForChanges());
         }
         private void init()
@@ -89,6 +94,9 @@ namespace RavaisiDesktopWPF
             //Initializing the program
             XAMPP.Start();
             this.WindowState = WindowState.Maximized;//maximize window
+            autoprint = true;
+            current_sql_cmd = OPEN_ORDERS_SQL_CMD;
+            filter = OPEN_ORDERS;
         }
         private int getLastIndex()
         {
@@ -171,7 +179,7 @@ namespace RavaisiDesktopWPF
             if (!order.mergedOrders)
                 order.mergeOrders();
             TableLabel.Content = order.table;
-            addOrderTab(order.getOrderString(order.order), "Ολη η παραγγελια");          
+            addOrderTab(order.getOrderString(order.order), "Ολη η παραγγελια");
             foreach (String orderString in order.orderStrings)
             {
                 addOrderTab(order.getOrderString(order.getAddedOrder(orderString)), "Παραγγελια: " + orderString.Split('#')[1]);
@@ -180,6 +188,17 @@ namespace RavaisiDesktopWPF
         void orderButtonClick(object sender, EventArgs e, Order order)
         {
             showOrder(order);
+        }
+
+        void printUnprintedOrders()
+        {
+            ArrayList indices;
+            foreach (Order order in orders)
+            {             
+                indices = order.getUnprintedIndices();
+                foreach (int index in indices)
+                order.Print(index.ToString());                   
+            }
         }
         private void showOrders()
         {
@@ -198,7 +217,9 @@ namespace RavaisiDesktopWPF
             //for every order in the orders array create a button 
             foreach (Order order in orders)
             {
-                
+                if (filter == 1)
+                    if (order.loaded == true)
+                        continue;
                 Button button = createButton(order.table, order.table + "Btn", new Point(ButtonX, ButtonY), ButtonWidth, ButtonHeight, (s, e) => orderButtonClick(s, e, order));
                 TableCanvas.Children.Add(button);
 
@@ -212,9 +233,10 @@ namespace RavaisiDesktopWPF
                     ButtonX += ButtonWidth + StandardButtonX;
                 }
                 buttonLocation.X = ButtonX;
-                buttonLocation.Y = ButtonY;
-
-            }          
+                buttonLocation.Y = ButtonY;                
+            }
+            if (autoprint)
+                printUnprintedOrders();
         }
         private int getActiveOrders()
         {
@@ -275,12 +297,11 @@ namespace RavaisiDesktopWPF
                     Dispatcher.Invoke(new Action(() => getOrders(current_sql_cmd)));
                     Dispatcher.Invoke(new Action(() => showOrders()));
                 }
-                if (checkForLoadedOrders())
+                if (checkForLoadedOrders() && filter!=NEW_ORDERS)
                 {
                     Dispatcher.Invoke(new Action(() => getOrders(current_sql_cmd)));
                     Dispatcher.Invoke(new Action(() => showOrders()));
                 }
-                //if (autoPrintChBox.Checked) printNewOrders();
                 if (checkForActiveOrders())
                 {
                     Dispatcher.Invoke(new Action(() => getOrders(current_sql_cmd)));
@@ -302,6 +323,30 @@ namespace RavaisiDesktopWPF
             if (loadedOrder == null)
                 return;
             loadedOrder.closeOrder();
+        }
+
+        private void AutoPrintCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            autoprint = true;
+        }
+
+        private void AutoPrintCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            autoprint = false;
+        }
+
+        private void OpenTablesRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            filter = OPEN_ORDERS;
+            if (orders != null)
+                showOrders();
+        }
+
+        private void UnreadTablesRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            filter = NEW_ORDERS;
+            if (orders != null)
+                showOrders();
         }
     }
 }
