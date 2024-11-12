@@ -38,6 +38,20 @@
             <Button Content="Close" Name="CloseButton" Click="CloseButton_Click"  Canvas.Top="634" Height="50" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="200"/>
         </Canvas>
         <Canvas Name="NavBarCanvas" Background="Azure"  Height="100" Grid.ColumnSpan="2" Margin="10,1,10,963"/>
-        <Canvas Name="SideBarCanvas" Background="CadetBlue" Margin="0,106,0,10" HorizontalAlignment="Left" Width="248"/>
+        <Canvas Name="SideBarCanvas" Background="CadetBlue" Margin="2,106,0,10" HorizontalAlignment="Left" Width="248">
+            <Label Content="Printing" FontSize="20" Canvas.Left="27" Canvas.Top="49" RenderTransformOrigin="0.18,0.258"/>
+            <CheckBox Content="Auto print" Name="AutoPrintCheckBox" Canvas.Left="27" Canvas.Top="91"/>
+            <Label Content="Filters" FontSize="20" Canvas.Left="29" Canvas.Top="133" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <RadioButton Name="OpenTablesRadioButton" Content="Open tables" Canvas.Left="27" Canvas.Top="175" HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <RadioButton Name="UnreadTablesRadioButton" Content="Unread Tables" Canvas.Left="27" Canvas.Top="195"/>
+            <Label Content="Sort" FontSize="20" Canvas.Left="29" Canvas.Top="242" RenderTransformOrigin="1.029,0.564" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <ComboBox Canvas.Left="29"  Canvas.Top="303" Width="120">
+                <ComboBoxItem Content="Price"/>
+                <ComboBoxItem Content="Order size"/>
+                <ComboBoxItem Content="Time set"/>
+            </ComboBox>
+            <CheckBox Name="descedingCheckBox" Content="Descending" Canvas.Left="33" Canvas.Top="349" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+        </Canvas>
     </Grid>
 </Window>
