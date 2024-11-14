@@ -128,7 +128,6 @@ namespace RavaisiDesktopWPF
                 result += "\nΣχολια: " + alignComments(this.comments);
                 return result;
             }
-
             public string getHeaderProgramString()
             {
                 //This method returns the string to be printed by the order printer
@@ -278,6 +277,17 @@ namespace RavaisiDesktopWPF
                 orderStr += "0"; //if price is decimal add a 0
             orderStr += " €"; //add currency symbol
             return orderStr;
+        }
+        public float getPrice()
+        {
+            //This method return the price of the order in float type
+            float sum = 0;
+            DataRow[] rows = OrdersSQLDatabase.getRowsArray("SELECT price FROM orders WHERE order_table='" + table + "' AND closed=0");
+            foreach (DataRow row in rows)
+            {
+                sum += float.Parse(row["price"].ToString());
+            }
+            return sum;
         }
 
         public ArrayList getAddedOrder(string ordStr)

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -65,6 +66,8 @@ namespace RavaisiDesktopWPF
         private const int OPEN_ORDERS = 0;
         private const int NEW_ORDERS = 1;
         int filter;
+        ArrayList newOrders;
+        ArrayList unprintedOrders;
         Order loadedOrder;
         List<Order> orders;
         String XAMPPPath = "";
@@ -108,9 +111,7 @@ namespace RavaisiDesktopWPF
                 return int.Parse(result);
             else return 0;
         }
-
-       
-
+        
         public void getOrders(string cmd)
         {
             //This method gets all the orders as specified by the sql command
@@ -130,7 +131,7 @@ namespace RavaisiDesktopWPF
                                         row["order_index"].ToString());
 
                 orders.Add(order); //adding each order to the Order ArrayList orders
-            }
+            }            
         }
         private Button createButton(string text, string name, Point location, int width, int height, Action<object, EventArgs> click)
         {
@@ -189,9 +190,19 @@ namespace RavaisiDesktopWPF
         {
             showOrder(order);
         }
-
+        void getUnloadedOrders()
+        {
+            //this method writes all the table names of the orders that has not been yet displayed to an array
+            newOrders = new ArrayList();
+            DataRow[] data = OrdersSQLDatabase.getRowsArray("SELECT order_table FROM orders WHERE loaded=0");
+            foreach (DataRow row in data)
+            {
+                newOrders.Add(row["order_table"]);
+            }
+        }
         void printUnprintedOrders()
         {
+            //This method prints all the orders that has not been printed
             ArrayList indices;
             foreach (Order order in orders)
             {             
@@ -211,14 +222,14 @@ namespace RavaisiDesktopWPF
 
             Point buttonLocation = new Point();
 
-
+            orders = Sorting.Price(orders);
             TableCanvas.Children.Clear();//Clearing all the controls to update
-
+            getUnloadedOrders();           
             //for every order in the orders array create a button 
             foreach (Order order in orders)
             {
                 if (filter == 1)
-                    if (order.loaded == true)
+                    if (!Searching.Find(newOrders, order.table))
                         continue;
                 Button button = createButton(order.table, order.table + "Btn", new Point(ButtonX, ButtonY), ButtonWidth, ButtonHeight, (s, e) => orderButtonClick(s, e, order));
                 TableCanvas.Children.Add(button);
@@ -235,6 +246,7 @@ namespace RavaisiDesktopWPF
                 buttonLocation.X = ButtonX;
                 buttonLocation.Y = ButtonY;                
             }
+
             if (autoprint)
                 printUnprintedOrders();
         }
@@ -285,6 +297,7 @@ namespace RavaisiDesktopWPF
             return false;
         }
 
+          
         private bool checkForChanges()
         {
             while (true)
