@@ -66,6 +66,11 @@ namespace RavaisiDesktopWPF
         private const int OPEN_ORDERS = 0;
         private const int NEW_ORDERS = 1;
         int filter;
+        private const int BY_PRICE = 0;
+        private const int BY_SIZE = 1;
+        private const int BY_TIME_SET = 2;
+        int sort;
+        bool descending;
         ArrayList newOrders;
         ArrayList unprintedOrders;
         Order loadedOrder;
@@ -128,7 +133,8 @@ namespace RavaisiDesktopWPF
                                         row["id"].ToString(),
                                         (Boolean)row["loaded"],
                                         (Boolean)row["printed"],
-                                        row["order_index"].ToString());
+                                        row["order_index"].ToString(),
+                                        DateTime.Parse(row["date_time"].ToString()));
 
                 orders.Add(order); //adding each order to the Order ArrayList orders
             }            
@@ -211,6 +217,29 @@ namespace RavaisiDesktopWPF
                 order.Print(index.ToString());                   
             }
         }
+        private void sortOrders()
+        {
+            if (sort == BY_PRICE)
+            {
+                if (!descending)
+                    orders = Sorting.Price(orders);
+                else orders = Sorting.PriceD(orders);
+                return;
+            }
+            if (sort == BY_SIZE)
+            {
+                if (!descending)
+                    orders = Sorting.Size(orders);
+                else orders = Sorting.SizeD(orders);
+                return;
+            }
+            if (sort == BY_TIME_SET)
+            {
+                if (!descending)
+                    orders = Sorting.Time(orders);
+                else orders = Sorting.TimeD(orders);
+            }
+        }
         private void showOrders()
         {
             int ButtonWidth = 200;
@@ -219,10 +248,7 @@ namespace RavaisiDesktopWPF
             int ButtonX = 15;
             int ButtonY = 15;
             int StandardButtonX = 15;
-
             Point buttonLocation = new Point();
-
-            orders = Sorting.Price(orders);
             TableCanvas.Children.Clear();//Clearing all the controls to update
             getUnloadedOrders();           
             //for every order in the orders array create a button 
@@ -360,6 +386,18 @@ namespace RavaisiDesktopWPF
             filter = NEW_ORDERS;
             if (orders != null)
                 showOrders();
+        }
+
+        private void applyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SortComboBox.SelectionBoxItem.ToString().Equals("Price"))
+                sort = BY_PRICE;
+            else if (SortComboBox.SelectionBoxItem.ToString().Equals("Order size"))
+                sort = BY_SIZE;
+            else sort = BY_TIME_SET;           
+            descending = (bool)descedingCheckBox.IsChecked;
+            sortOrders();
+            showOrders();
         }
     }
 }

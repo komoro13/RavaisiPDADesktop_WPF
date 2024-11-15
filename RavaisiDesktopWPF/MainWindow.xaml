@@ -45,12 +45,13 @@
             <RadioButton Name="OpenTablesRadioButton" Content="Open tables" IsChecked="True" Checked="OpenTablesRadioButton_Checked" Canvas.Left="27" Canvas.Top="175" HorizontalAlignment="Center" VerticalAlignment="Top" />
             <RadioButton Name="UnreadTablesRadioButton" Content="Unread Tables" Checked="UnreadTablesRadioButton_Checked" Canvas.Left="27" Canvas.Top="195"/>
             <Label Content="Sort" FontSize="20" Canvas.Left="29" Canvas.Top="242" RenderTransformOrigin="1.029,0.564" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <ComboBox Canvas.Left="29"  Canvas.Top="284" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <ComboBox Name="SortComboBox" Canvas.Left="29" Canvas.Top="284" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <ComboBoxItem Content="Price"/>
                 <ComboBoxItem Content="Order size"/>
                 <ComboBoxItem Content="Time set"/>
             </ComboBox>
             <CheckBox Name="descedingCheckBox" Content="Descending" Canvas.Left="29" Canvas.Top="321" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Button Content="Apply" Name="applyButton" Click="applyButton_Click" Canvas.Left="35" Canvas.Top="369" HorizontalAlignment="Center" VerticalAlignment="Top" Width="76" Height="25"/>
 
         </Canvas>
     </Grid>

@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using Brushes = System.Drawing.Brushes;
 using Point = System.Drawing.Point;
 using PrintDialog = System.Windows.Controls.PrintDialog;
+using System.Runtime.InteropServices;
 
 namespace RavaisiDesktopWPF
 {
@@ -31,13 +32,15 @@ namespace RavaisiDesktopWPF
         string price;
         string products_string;
         string current_order;
+
+        public DateTime dateTime;
         
         public ArrayList order = new ArrayList();
         public ArrayList orderStrings = new ArrayList();
         
         public string orderId;
         string content = "";
-
+        
         public string orderIndex;
         
         Product product1;
@@ -53,7 +56,7 @@ namespace RavaisiDesktopWPF
         PrintDocument printDocument = new PrintDocument();
     
 
-        public Order(String orderString, String price, String orderId, Boolean loaded, Boolean printed, String orderIndex)
+        public Order(String orderString, String price, String orderId, Boolean loaded, Boolean printed, String orderIndex, DateTime dateTime)
         {
 
             this.orderString = orderString;//Order string is the order encoded by the android app
@@ -64,6 +67,7 @@ namespace RavaisiDesktopWPF
             this.printed = printed; //1 if order has been printed 0 if not
             this.orderIndex = orderIndex; //The index of the order starting by the first order since that table opened
             printDocument.DefaultPageSettings.PaperSize = new PaperSize("pprnm", 285, 600);//The size of the print page
+            this.dateTime = dateTime;
         }
 
         class Product
@@ -230,6 +234,7 @@ namespace RavaisiDesktopWPF
         }
         public void mergeOrders()
         {
+            if (mergedOrders) return;
             //This method decodes and adds every order string to the Product ArrayList Order.order      
             getOrderStrings(); //load order strings to orderStrings ArrayList
             string pdString; //String where the product string is going to be saved
@@ -290,6 +295,14 @@ namespace RavaisiDesktopWPF
             return sum;
         }
 
+        public int getSize()
+        {
+            int size = 0;
+            mergeOrders();
+            foreach (Product product in order)
+                size += int.Parse(product.quantity);
+            return size;
+        }
         public ArrayList getAddedOrder(string ordStr)
         {
             //This method adds a single order to the current order that we want to display 
