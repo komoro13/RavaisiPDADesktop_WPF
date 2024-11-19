@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RavaisiDesktopWPF"
         mc:Ignorable="d"
-        Title="Edit product" Height="450" Width="800">
+        Title="Edit product" Height="450" Width="800"
+        Loaded="Window_Loaded">
     <Grid>
         <Label Margin="0,10,0,-10">Product Name</Label>
-        <TextBox Name="productNameTextBox" TextChanged="productNameTextBox_TextChanged" Margin="95,10,580,395" ></TextBox>
     </Grid>
 </Window>

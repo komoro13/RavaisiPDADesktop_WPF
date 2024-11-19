@@ -19,12 +19,31 @@ namespace RavaisiDesktopWPF
     /// </summary>
     public partial class editProductDialog : Window
     {
+        string productName;
+        List<CheckBox> toppingCheckBoxes = new List<CheckBox>();
         public editProductDialog()
         {
             InitializeComponent();
+
+        }
+        private void productNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
-        private void productNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void loadProductToppings()
+        {
+            string toppings = OrdersSQLDatabase.GetString("SELECT toppings FROM products WHERE name='" + productName + "'");
+            if(toppings != null) 
+            {
+                foreach (string topping in toppings.Split(','))
+                {
+                    toppingCheckBoxes.Add(new CheckBox() { Content = topping.Split('/')[0] }); 
+                }               
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
