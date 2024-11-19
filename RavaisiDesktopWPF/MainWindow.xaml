@@ -36,6 +36,9 @@
             <Label Content="Τραπέζι" Name="TableLabel" FontSize="15" FontFamily="Arial"  FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center" Width="72" Canvas.Left="164"/>
             <Button Content="Print" Name="PrintButton" Click="PrintButton_Click" Canvas.Top="634" Height="50" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Button Content="Close" Name="CloseButton" Click="CloseButton_Click"  Canvas.Top="634" Height="50" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="200"/>
+            <Button Content="Add" Name="AddButton" Height="50" Canvas.Top="584" HorizontalAlignment="Left" VerticalAlignment="Center" Width="134"/>
+            <Button Content="Edit" Name="EditButton" Canvas.Left="132" Height="50" Canvas.Top="584" RenderTransformOrigin="-0.149,0.483" HorizontalAlignment="Left" VerticalAlignment="Center" Width="136"></Button>
+            <Button Content="Delete" Name="DeleteButton" Canvas.Left="265" Height="50" Canvas.Top="584" RenderTransformOrigin="0.795,4.276" HorizontalAlignment="Left" VerticalAlignment="Center" Width="136"></Button>
         </Canvas>
         <Canvas Name="NavBarCanvas" Background="Azure"  Height="100" Grid.ColumnSpan="2" Margin="10,1,10,963"/>
         <Canvas Name="SideBarCanvas" Background="CadetBlue" Margin="2,106,0,10" HorizontalAlignment="Left" Width="248">

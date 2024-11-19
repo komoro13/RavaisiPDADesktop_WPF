@@ -34,7 +34,7 @@ namespace RavaisiDesktopWPF
             finally
             {
                 reader.Close();
-                connect.Close();
+                connect.Close(); 
             }
             return 0;
         }

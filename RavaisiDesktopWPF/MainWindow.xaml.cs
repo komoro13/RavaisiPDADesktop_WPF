@@ -54,6 +54,9 @@ namespace RavaisiDesktopWPF
     /// 2.Filters: The side menu in the UI have to contain a sorting and filter menu that is gonna let the user sort and filer the orders displayed
     /// For example: show only the unread ones, and sort by time
     /// 3. Navbar: A navbar is going to navigate to the rest windows of the program and its going to consist of 5 buttons, orders, products, history, settings, help
+    ///
+ 
+
     public partial class MainWindow : Window
     {
 
@@ -128,7 +131,7 @@ namespace RavaisiDesktopWPF
             {
                 if (row["id"] == null)
                     break;
-                Order order = new Order(row["order_String"].ToString(), //order constructor
+                Order order = new Order(row["order_string"].ToString(), //order constructor
                                         row["price"].ToString(),
                                         row["id"].ToString(),
                                         (Boolean)row["loaded"],
@@ -139,58 +142,37 @@ namespace RavaisiDesktopWPF
                 orders.Add(order); //adding each order to the Order ArrayList orders
             }            
         }
-        private Button createButton(string text, string name, Point location, int width, int height, Action<object, EventArgs> click)
-        {
-            //Button constructor
-            Button b = new Button()
-            {
-                Content = text,
-                Name = name,
-                Width = width,
-                Height = height,
-                FontSize = 15,
-                FontFamily = new FontFamily("Arial")
-            };
-            Canvas.SetLeft(b,location.X);
-            Canvas.SetTop(b, location.Y);
-            b.Click += new RoutedEventHandler(click);
-            return b;
-        }
-        private Label createLabel(string text, string name, FontFamily fontFamily, int fontSize)
-        {
-            //Label constructor
-            Label l = new Label()
-            {
-                Content = text,
-                Name = name,
-                FontFamily = fontFamily,
-                FontSize = fontSize
-            };
-            return l;
-        }
+        
+ 
         private void addOrderTab(String orderString, String text)
         {
+            //This method adds a tab to the OrdersTabControl
+            TabItem tabItem = new TabItem();
+            tabItem.Header = text;
+            //Label label = CopontentsConstructors.createLabel(orderString, "label", new FontFamily("Arial"), 10);
+            StackPanel ordersStackPanel = new StackPanel();
+            foreach (Label label in loadedOrder.GetLabels())
             {
-                TabItem tabItem = new TabItem();
-                tabItem.Header = text;
-                Label label = createLabel(orderString, "label", new FontFamily("Arial"), 10);             
-                tabItem.Content = label;
-                OrdersTabControl.Items.Add(tabItem);
+                ordersStackPanel.Children.Add(label);
             }
+            tabItem.Content = ordersStackPanel;
+            OrdersTabControl.Items.Add(tabItem);
         }
         private void showOrder(Order order)
         {
-            loadedOrder = order;          
+            //This mehtod add each order to the OrderTabControl
+            loadedOrder = order;
             order.setOrderAsLoaded(true);
             OrdersTabControl.Items.Clear();
             if (!order.mergedOrders)
                 order.mergeOrders();
             TableLabel.Content = order.table;
             addOrderTab(order.getOrderString(order.order), "Ολη η παραγγελια");
-            foreach (String orderString in order.orderStrings)
-            {
-                addOrderTab(order.getOrderString(order.getAddedOrder(orderString)), "Παραγγελια: " + orderString.Split('#')[1]);
-            }
+            OrdersTabControl.SelectedIndex = 0;
+            //foreach (String orderString in order.orderStrings)
+           // {
+           //     addOrderTab(order.getOrderString(order.getAddedOrder(orderString)), "Παραγγελια: " + orderString.Split('#')[1]);
+           // }
         }
         void orderButtonClick(object sender, EventArgs e, Order order)
         {
@@ -257,7 +239,7 @@ namespace RavaisiDesktopWPF
                 if (filter == 1)
                     if (!Searching.Find(newOrders, order.table))
                         continue;
-                Button button = createButton(order.table, order.table + "Btn", new Point(ButtonX, ButtonY), ButtonWidth, ButtonHeight, (s, e) => orderButtonClick(s, e, order));
+                Button button = CopontentsConstructors.createButton(order.table, order.table + "Btn", new Point(ButtonX, ButtonY), ButtonWidth, ButtonHeight, (s, e) => orderButtonClick(s, e, order));
                 TableCanvas.Children.Add(button);
 
                 if ((Canvas.GetLeft(button) + 100 + ButtonWidth) > TableCanvas.ActualWidth)

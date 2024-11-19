@@ -8,13 +8,16 @@ using System.Windows.Media;
 using System.Drawing;
 using System.Drawing.Printing;
 using FontStyle = System.Drawing.FontStyle;
-using FontFamily = System.Drawing.FontFamily;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using Brushes = System.Drawing.Brushes;
 using Point = System.Drawing.Point;
 using PrintDialog = System.Windows.Controls.PrintDialog;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
+using Label = System.Windows.Controls.Label;
+using FontFamily = System.Windows.Media.FontFamily;
+using MessageBox = System.Windows.MessageBox;
 
 namespace RavaisiDesktopWPF
 {
@@ -52,7 +55,7 @@ namespace RavaisiDesktopWPF
         
         bool setHeader = false;
 
-        Font font = new Font(FontFamily.GenericMonospace, 10);
+        Font font = new Font("Arial", 10);
         PrintDocument printDocument = new PrintDocument();
     
 
@@ -188,7 +191,8 @@ namespace RavaisiDesktopWPF
             }
             return rows.Length;
         }
-
+        
+        
         public ArrayList getUnprintedIndices()
         {
             ArrayList indices = new ArrayList();
@@ -282,6 +286,17 @@ namespace RavaisiDesktopWPF
                 orderStr += "0"; //if price is decimal add a 0
             orderStr += " €"; //add currency symbol
             return orderStr;
+        }
+
+        public List<Label> GetLabels()
+        {
+            List<Label> labels = new List<Label>();
+            mergeOrders();
+            foreach(Product product in order)
+            {
+                labels.Add(CopontentsConstructors.createLabel(product.GetString(), "label", new FontFamily("Arial"), 15));
+            }
+            return labels;
         }
         public float getPrice()
         {
@@ -426,7 +441,7 @@ namespace RavaisiDesktopWPF
 
             foreach (Product product in order)
             {
-                e.Graphics.DrawString(product.getHeaderProgramString(), new Font(FontFamily.GenericMonospace, 12, FontStyle.Bold), Brushes.Black, new Point(5, y));
+                e.Graphics.DrawString(product.getHeaderProgramString(), new Font(System.Drawing.FontFamily.GenericMonospace, 12, FontStyle.Bold), Brushes.Black, new Point(5, y));
                 y += line_offset;
                 if (!product.toppings.Equals(""))//if toppings is not empty print toppings
                 {
