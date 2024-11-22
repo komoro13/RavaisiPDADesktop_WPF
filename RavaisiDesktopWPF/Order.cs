@@ -287,14 +287,19 @@ namespace RavaisiDesktopWPF
             orderStr += " €"; //add currency symbol
             return orderStr;
         }
-
+        private void showDialog(string productName)
+        {
+            editProductDialog editProductDialog = new editProductDialog(productName);
+            editProductDialog.Show();
+        }
         public List<Label> GetLabels()
         {
             List<Label> labels = new List<Label>();
             mergeOrders();
             foreach(Product product in order)
             {
-                labels.Add(CopontentsConstructors.createLabel(product.GetString(), "label", new FontFamily("Arial"), 15));
+                Label label = CopontentsConstructors.createLabel(product.GetString(), "label", new FontFamily("Arial"), 15);
+                label.AddHandler 
             }
             return labels;
         }

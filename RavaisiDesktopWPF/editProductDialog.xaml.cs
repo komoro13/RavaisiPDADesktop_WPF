@@ -21,10 +21,10 @@ namespace RavaisiDesktopWPF
     {
         string productName;
         List<CheckBox> toppingCheckBoxes = new List<CheckBox>();
-        public editProductDialog()
+        public editProductDialog(string productName)
         {
             InitializeComponent();
-
+            this.productName = productName;
         }
         private void productNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -41,6 +41,18 @@ namespace RavaisiDesktopWPF
                     toppingCheckBoxes.Add(new CheckBox() { Content = topping.Split('/')[0] }); 
                 }               
             }
+        }
+
+        private void showCheckBoxes()
+        {
+            double x=0, y=0;
+            foreach (CheckBox checkBox in toppingCheckBoxes) 
+            {
+                toppingsCanvas.Children.Add(checkBox);
+                y = y - checkBox.ActualHeight;
+                Canvas.SetTop(checkBox, y);
+            }
+          
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
