@@ -28,6 +28,19 @@ namespace RavaisiDesktopWPF
             b.Click += new RoutedEventHandler(click);
             return b;
         }
+        static public Button createButton(string text, string name, Action<object, EventArgs> click)
+        {
+            //Button constructor
+            Button b = new Button()
+            {
+                Content = text,
+                Name = name,
+                FontSize = 15,
+                FontFamily = new FontFamily("Arial")
+            };
+            b.Click += new RoutedEventHandler(click);
+            return b;
+        }
         static public Label createLabel(string text, string name, FontFamily fontFamily, int fontSize)
         {
             //Label constructor

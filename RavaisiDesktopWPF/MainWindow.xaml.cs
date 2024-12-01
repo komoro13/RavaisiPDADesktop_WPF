@@ -1,32 +1,13 @@
-﻿using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Utilities.IO;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Brush = System.Windows.Media.Brush;
 using Button = System.Windows.Controls.Button;
-using Color = System.Drawing.Color;
-using FontFamily = System.Windows.Media.FontFamily;
 using Label = System.Windows.Controls.Label;
-using MessageBox = System.Windows.MessageBox;
 using Point = System.Windows.Point;
-using TabControl = System.Windows.Controls.TabControl;
 
 namespace RavaisiDesktopWPF
 {
@@ -55,7 +36,7 @@ namespace RavaisiDesktopWPF
     /// For example: show only the unread ones, and sort by time
     /// 3. Navbar: A navbar is going to navigate to the rest windows of the program and its going to consist of 5 buttons, orders, products, history, settings, help
     ///
- 
+
 
     public partial class MainWindow : Window
     {
@@ -79,6 +60,7 @@ namespace RavaisiDesktopWPF
         Order loadedOrder;
         List<Order> orders;
         String XAMPPPath = "";
+        Order selectedOrder;
         //--------------------------------End of Global variables---------------------------------------------------
 
         //--------------------------------------Database constants---------------------------------------------------
@@ -151,9 +133,9 @@ namespace RavaisiDesktopWPF
             tabItem.Header = text;
             //Label label = CopontentsConstructors.createLabel(orderString, "label", new FontFamily("Arial"), 10);
             StackPanel ordersStackPanel = new StackPanel();
-            foreach (Label label in loadedOrder.GetLabels())
+            foreach (Button button in loadedOrder.GetButtons())
             {
-                ordersStackPanel.Children.Add(label);
+                ordersStackPanel.Children.Add(button);
             }
             tabItem.Content = ordersStackPanel;
             OrdersTabControl.Items.Add(tabItem);
@@ -177,6 +159,7 @@ namespace RavaisiDesktopWPF
         void orderButtonClick(object sender, EventArgs e, Order order)
         {
             showOrder(order);
+            selectedOrder = order;
         }
         void getUnloadedOrders()
         {
@@ -242,7 +225,7 @@ namespace RavaisiDesktopWPF
                 Button button = CopontentsConstructors.createButton(order.table, order.table + "Btn", new Point(ButtonX, ButtonY), ButtonWidth, ButtonHeight, (s, e) => orderButtonClick(s, e, order));
                 TableCanvas.Children.Add(button);
 
-                if ((Canvas.GetLeft(button) + 100 + ButtonWidth) > TableCanvas.ActualWidth)
+                if ((Canvas.GetLeft(button) + 200 + ButtonWidth) > TableCanvas.ActualWidth)
                 {
                     ButtonX = StandardButtonX;
                     ButtonY = ButtonY + 15 + ButtonHeight;
@@ -380,6 +363,11 @@ namespace RavaisiDesktopWPF
             descending = (bool)descedingCheckBox.IsChecked;
             sortOrders();
             showOrders();
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            selectedOrder.showDialog();
         }
     }
 }

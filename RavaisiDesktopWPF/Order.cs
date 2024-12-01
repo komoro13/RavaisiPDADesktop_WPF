@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections;
 using System.Data;
-using System.Linq;
-using System.Windows.Controls;
-using System.Windows;
-using System.Windows.Media;
 using System.Drawing;
 using System.Drawing.Printing;
 using FontStyle = System.Drawing.FontStyle;
-using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using System.Windows.Controls;
 using Brushes = System.Drawing.Brushes;
 using Point = System.Drawing.Point;
 using PrintDialog = System.Windows.Controls.PrintDialog;
-using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using Label = System.Windows.Controls.Label;
 using FontFamily = System.Windows.Media.FontFamily;
+using System.Windows;
+using Button = System.Windows.Controls.Button;
 using MessageBox = System.Windows.MessageBox;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
+using System.Windows.Shell;
+using System.Windows.Media;
+using SystemColors = System.Windows.SystemColors;
 
 namespace RavaisiDesktopWPF
 {
-    class Order
+    public class Order
     {
         
         string dbconnect = "server=127.0.0.1; User=root; password=;database=ravaisi";//Database credentials
@@ -57,7 +58,7 @@ namespace RavaisiDesktopWPF
 
         Font font = new Font("Arial", 10);
         PrintDocument printDocument = new PrintDocument();
-    
+        Product selectedProduct;
 
         public Order(String orderString, String price, String orderId, Boolean loaded, Boolean printed, String orderIndex, DateTime dateTime)
         {
@@ -70,7 +71,7 @@ namespace RavaisiDesktopWPF
             this.printed = printed; //1 if order has been printed 0 if not
             this.orderIndex = orderIndex; //The index of the order starting by the first order since that table opened
             printDocument.DefaultPageSettings.PaperSize = new PaperSize("pprnm", 285, 600);//The size of the print page
-            this.dateTime = dateTime;
+            this.dateTime = dateTime;          
         }
 
         class Product
@@ -164,7 +165,6 @@ namespace RavaisiDesktopWPF
                 //every time its gonna surpass page length
 
                 String str = comments;
-
                 if (str.Length > 30)
                 {
                     str = str.Insert(30, "\n");
@@ -173,6 +173,12 @@ namespace RavaisiDesktopWPF
                     return str;
                 }
                 return str;
+            }
+            public void ChangeValues(string toppings, string comments, string quantity)
+            {
+                this.toppings = toppings;
+                this.comments = comments;
+                this.quantity = quantity;
             }
 
         }
@@ -287,21 +293,33 @@ namespace RavaisiDesktopWPF
             orderStr += " €"; //add currency symbol
             return orderStr;
         }
-        private void showDialog(string productName)
+        public void showDialog()
         {
-            editProductDialog editProductDialog = new editProductDialog(productName);
-            editProductDialog.Show();
+            editProductDialog editProductDialog = new editProductDialog(selectedProduct.name, selectedProduct.toppings, selectedProduct.comments, selectedProduct.quantity, this);
+            editProductDialog.ShowDialog();
         }
-        public List<Label> GetLabels()
+
+        private void setSelectedProduct(Object sender, EventArgs e, Product product)
         {
-            List<Label> labels = new List<Label>();
+            selectedProduct = product;
+            UIElementCollection productButtons = ((StackPanel)((Button)sender).Parent).Children;
+            foreach(Button button in productButtons)
+            {
+                button.ClearValue(Button.BackgroundProperty);
+            }
+            ((Button)sender).Background = new SolidColorBrush(Colors.Red);
+          }
+        public List<Button> GetButtons()
+        {
+            List<Button> buttons = new List<Button>();
             mergeOrders();
             foreach(Product product in order)
             {
-                Label label = CopontentsConstructors.createLabel(product.GetString(), "label", new FontFamily("Arial"), 15);
-                label.AddHandler 
+                Button button = CopontentsConstructors.createButton(product.GetString(),"button",(s,e)=>setSelectedProduct(s,e,product));
+                button.HorizontalContentAlignment = HorizontalAlignment.Left;
+                buttons.Add(button);
             }
-            return labels;
+            return buttons;
         }
         public float getPrice()
         {
@@ -404,6 +422,20 @@ namespace RavaisiDesktopWPF
             //This method creates a document of the order to be printed
             return "C:\\Users\\tbogi\\Desktop\\orders\\" + orderTable + "_" + index + ".docx";
 
+        }
+        public void editProductFromOrder(string toppings, string comments, string quantity)
+        {
+            ((Product)order[order.IndexOf(selectedProduct)]).ChangeValues(toppings, comments, quantity);
+            reencodeOrder();
+            sendOrder();
+        }
+        private void reencodeOrder()
+        {
+            //Reencode order
+        }
+        private void sendOrder()
+        {
+            //send order
         }
         public int getOrderLines()
         {
