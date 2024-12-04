@@ -1,0 +1,38 @@
+﻿<!--To contributors-->
+<!--Next thing to be added to the UI is a NavBar on the top and a side menu on the right-->
+<!--The navbar has to consist of orders, history, products and help button-->
+<!--Each button helps the user navigate to the corresponding page-->
+<!--Top left its gonna be the logo of the program/buisness-->
+<Window x:Class="RavaisiDesktopWPF.SupportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RavaisiDesktopWPF"
+        WindowState="Maximized"
+        Loaded="Window_Loaded"
+        mc:Ignorable="d"
+        Width="1366"
+        Height="711">
+    <Grid Margin="0,20,0,-20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="560*"/>
+            <ColumnDefinition Width="571*"/>
+        </Grid.ColumnDefinitions>
+        <!--Width of Table canvas is 875 as each table btn has width of 200 and margin 15 4 buttons per row: 4*200 + 5*15 = 800 + 75 -->
+        <Canvas Name="NavBarCanvas" Background="Azure"  Height="100" Grid.ColumnSpan="2" Margin="0,-17,0,612" HorizontalAlignment="Right" Width="1366">
+            <Button Content="Orders" Name="ordersButton" Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="230" Click="ordersButton_Click" />
+            <Button Content="Products" Name="productsButton" Canvas.Left="458" Height="100" Width="224" RenderTransformOrigin="0.447,0.448" HorizontalAlignment="Center" VerticalAlignment="Top" Click="productsButton_Click"/>
+            <Button Content="History" Name="historyButton"  Canvas.Left="686"  Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Click="historyButton_Click" />
+            <Button Content="Settings" Name="settingsButton" Canvas.Left="914" Height="100" Width="224" RenderTransformOrigin="-0.113,0.438" HorizontalAlignment="Center" VerticalAlignment="Top" Click="settingsButton_Click"/>
+            <Button Content="Support" Name="supportButton" Canvas.Left="1142" Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Click="supportButton_Click"/>
+        </Canvas>
+        <Image Height="100" Width="100" Margin="52,384,524,211"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="198,376,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label Content="Message" FontSize="20" HorizontalAlignment="Left" Margin="170,245,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="170,292,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="181" Width="265"/>
+        <Button Content="Send" HorizontalAlignment="Left" Margin="170,508,0,0" VerticalAlignment="Top" Height="30" Width="88"/>
+
+
+    </Grid>
+</Window>

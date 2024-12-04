@@ -20,7 +20,7 @@
             <ColumnDefinition Width="571*"/>
         </Grid.ColumnDefinitions>
         <!--Width of Table canvas is 875 as each table btn has width of 200 and margin 15 4 buttons per row: 4*200 + 5*15 = 800 + 75 -->
-        <Canvas Name="TableCanvas" Background="AliceBlue" Grid.ColumnSpan="2" Margin="253,101,405,0"/>
+        <Canvas Name="TableCanvas" Background="AliceBlue" Grid.ColumnSpan="2" Margin="230,101,405,0"/>
         <Canvas Name="OrderCanvas" Background="Beige" Grid.Column="1" Width="400" Margin="0,106,0,254" HorizontalAlignment="Right">
             <TabControl Name="OrdersTabControl" Height="513" Width="400" HorizontalAlignment="Center" Canvas.Top="31" VerticalAlignment="Top">
                 <TabItem Header="TabItem">
@@ -38,16 +38,22 @@
                     <Grid Background="#FFE5E5E5"/>
                 </TabItem>
             </TabControl>
-            <Button Content="Print" Name="PrintButton" Click="PrintButton_Click" Canvas.Top="538" Height="50" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Button Content="Print" Name="PrintButton" Click="PrintButton_Click" Canvas.Top="538" Height="50" Width="198" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="2"/>
             <Button Content="Close" Name="CloseButton" Click="CloseButton_Click"  Canvas.Top="538" Height="50" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="200"/>
-            <Button Content="Add" Name="AddButton" Height="50" Canvas.Top="488" HorizontalAlignment="Center" VerticalAlignment="Top" Width="134"/>
-            <Button Content="Edit" Name="EditButton" Click="EditButton_Click" Canvas.Left="132" Height="50" Canvas.Top="488" RenderTransformOrigin="-0.149,0.483" HorizontalAlignment="Center" VerticalAlignment="Top" Width="136"></Button>
-            <Button Content="Delete" Name="DeleteButton" Canvas.Left="265" Height="50" Canvas.Top="488" RenderTransformOrigin="0.795,4.276" HorizontalAlignment="Center" VerticalAlignment="Top" Width="136"></Button>
+            <Button Content="Add" Name="AddButton" Height="50" Canvas.Top="488" HorizontalAlignment="Left" VerticalAlignment="Center" Width="134" Canvas.Left="2"/>
+            <Button Content="Edit" Name="EditButton" Click="EditButton_Click" Canvas.Left="136" Height="50" Canvas.Top="488" RenderTransformOrigin="-0.149,0.483" HorizontalAlignment="Left" VerticalAlignment="Center" Width="133"></Button>
+            <Button Content="Delete" Name="DeleteButton" Canvas.Left="269" Height="50" Canvas.Top="488" RenderTransformOrigin="0.795,4.276" HorizontalAlignment="Left" VerticalAlignment="Center" Width="131"></Button>
             <Label Content="Τραπέζι" Name="TableLabel" FontSize="15" FontFamily="Arial"  FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center" Width="72" Canvas.Left="164"/>
 
         </Canvas>
-        <Canvas Name="NavBarCanvas" Background="Azure"  Height="100" Grid.ColumnSpan="2" Margin="0,1,0,651"/>
-        <Canvas Name="SideBarCanvas" Background="CadetBlue" Margin="2,106,0,0" HorizontalAlignment="Left" Width="248">
+        <Canvas Name="NavBarCanvas" Background="Azure"  Height="100" Grid.ColumnSpan="2" Margin="0,1,0,594" HorizontalAlignment="Right" Width="1366" >
+            <Button Content="Orders" Name="ordersButton" Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="230" Click="ordersButton_Click"/>
+            <Button Content="Products" Name="productsButton" Canvas.Left="458" Height="100" Width="224" RenderTransformOrigin="0.447,0.448" HorizontalAlignment="Center" VerticalAlignment="Top" Click="productsButton_Click"/>
+            <Button Content="History" Name="historyButton"  Canvas.Left="686"  Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Click="historyButton_Click"/>
+            <Button Content="Settings" Name="settingsButton" Canvas.Left="914" Height="100" Width="224" RenderTransformOrigin="-0.113,0.438" HorizontalAlignment="Center" VerticalAlignment="Top" Click="settingsButton_Click"/>
+            <Button Content="Support" Name="supportButton" Canvas.Left="1142" Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Click="supportButton_Click"/>
+        </Canvas>
+        <Canvas Name="SideBarCanvas" Background="CadetBlue" Margin="0,230,0,0" HorizontalAlignment="Left" Width="230">
             <Label Content="Printing" FontSize="20" Canvas.Left="27" Canvas.Top="49" RenderTransformOrigin="0.18,0.258"/>
             <CheckBox Content="Auto print" Name="AutoPrintCheckBox" IsChecked="True" Checked="AutoPrintCheckBox_Checked" Unchecked="AutoPrintCheckBox_Unchecked" Canvas.Left="27" Canvas.Top="91"/>
             <Label Content="Filters" FontSize="20" Canvas.Left="29" Canvas.Top="133" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -63,5 +69,6 @@
             <Button Content="Apply" Name="applyButton" Click="applyButton_Click" Canvas.Left="35" Canvas.Top="369" HorizontalAlignment="Center" VerticalAlignment="Top" Width="76" Height="25"/>
 
         </Canvas>
+        <Canvas Width="230" Height="230" Name="statsCanva"  RenderTransformOrigin="-0.475,-0.628" Margin="0,-2,446,467"/>
     </Grid>
 </Window>

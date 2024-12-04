@@ -1,0 +1,59 @@
+﻿<!--To contributors-->
+<!--Next thing to be added to the UI is a NavBar on the top and a side menu on the right-->
+<!--The navbar has to consist of orders, history, products and help button-->
+<!--Each button helps the user navigate to the corresponding page-->
+<!--Top left its gonna be the logo of the program/buisness-->
+<Window x:Class="RavaisiDesktopWPF.HistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RavaisiDesktopWPF"
+        WindowState="Maximized"
+        Loaded="Window_Loaded"
+        mc:Ignorable="d"
+        Width="1366"
+        Height="711">
+    <Grid Margin="0,22,0,-22">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="560*"/>
+            <ColumnDefinition Width="571*"/>
+        </Grid.ColumnDefinitions>
+        <!--Width of Table canvas is 875 as each table btn has width of 200 and margin 15 4 buttons per row: 4*200 + 5*15 = 800 + 75 -->
+        <Canvas Name="NavBarCanvas" Background="Azure"  Height="100" Grid.ColumnSpan="2" Margin="0,1,0,594" HorizontalAlignment="Right" Width="1366">
+            <Button Content="Orders" Name="ordersButton" Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="230" Click="ordersButton_Click"/>
+            <Button Content="Products" Name="productsButton" Canvas.Left="458" Height="100" Width="224" RenderTransformOrigin="0.447,0.448" HorizontalAlignment="Center" VerticalAlignment="Top" Click="productsButton_Click"/>
+            <Button Content="History" Name="historyButton"  Canvas.Left="686"  Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Click="historyButton_Click"/>
+            <Button Content="Settings" Name="settingsButton" Canvas.Left="914" Height="100" Width="224" RenderTransformOrigin="-0.113,0.438" HorizontalAlignment="Center" VerticalAlignment="Top" Click="settingsButton_Click"/>
+            <Button Content="Support" Name="supportButton" Canvas.Left="1142" Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Click="supportButton_Click"/>
+        </Canvas>
+        <Canvas Name="datePickerCanvas" Margin="0,88,31,0">
+            <DatePicker Name="startDatePicker" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="19" Canvas.Top="138"/>
+            <DatePicker Name="endDatePicker" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="191" Canvas.Top="138"/>
+            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Height="305" Canvas.Top="268" Width="645" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Button Content="Enter" Canvas.Left="24" Canvas.Top="222" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" Width="62"/>
+        </Canvas>
+
+        <Canvas Name="OrderCanvas" Background="Beige" Grid.Column="1" Width="400" Margin="0,128,2,232" HorizontalAlignment="Right">
+            <TabControl Name="OrdersTabControl" Height="513" Width="400" HorizontalAlignment="Center" Canvas.Top="31" VerticalAlignment="Top">
+                <TabItem Header="TabItem">
+                    <Grid Background="#FFE5E5E5" Height="526">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="137*"/>
+                            <ColumnDefinition Width="22*"/>
+                            <ColumnDefinition Width="93*"/>
+                            <ColumnDefinition Width="83*"/>
+                            <ColumnDefinition Width="60*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="TabItem">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+            </TabControl>
+            <Label Content="Τραπέζι" Name="TableLabel" FontSize="15" FontFamily="Arial"  FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center" Width="72" Canvas.Left="164"/>
+
+        </Canvas>
+
+    </Grid>
+</Window>

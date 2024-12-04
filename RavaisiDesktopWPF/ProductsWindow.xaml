@@ -1,0 +1,60 @@
+﻿<!--To contributors-->
+<!--Next thing to be added to the UI is a NavBar on the top and a side menu on the right-->
+<!--The navbar has to consist of orders, history, products and help button-->
+<!--Each button helps the user navigate to the corresponding page-->
+<!--Top left its gonna be the logo of the program/buisness-->
+<Window x:Class="RavaisiDesktopWPF.ProductsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RavaisiDesktopWPF"
+        WindowState="Maximized"
+        Loaded="Window_Loaded"
+        mc:Ignorable="d"
+        Width="1366"
+        Height="711">
+    <Grid Margin="0,18,0,-18">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="560*"/>
+            <ColumnDefinition Width="571*"/>
+        </Grid.ColumnDefinitions>
+        <!--Width of Table canvas is 875 as each table btn has width of 200 and margin 15 4 buttons per row: 4*200 + 5*15 = 800 + 75 -->
+        <Canvas Name="NavBarCanvas" Background="Azure"  Height="100" Grid.ColumnSpan="2" Margin="0,1,0,594" HorizontalAlignment="Right" Width="1366">
+            <Button Content="Orders" Name="ordersButton" Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="230" Click="ordersButton_Click"/>
+            <Button Content="Products" Name="productsButton" Canvas.Left="458" Height="100" Width="224" RenderTransformOrigin="0.447,0.448" HorizontalAlignment="Center" VerticalAlignment="Top" Click="productsButton_Click"/>
+            <Button Content="History" Name="historyButton"  Canvas.Left="686"  Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Click="historyButton_Click"/>
+            <Button Content="Settings" Name="settingsButton" Canvas.Left="914" Height="100" Width="224" RenderTransformOrigin="-0.113,0.438" HorizontalAlignment="Center" VerticalAlignment="Top" Click="settingsButton_Click"/>
+            <Button Content="Support" Name="supportButton" Canvas.Left="1142" Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Click="supportButton_Click"/>
+        </Canvas>
+        <Canvas Margin="0,196,245,10" Name="categoriesCanvas">
+            <Label Content="Categories" FontSize="20" Canvas.Left="28" Canvas.Top="32" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox Canvas.Left="28" TextWrapping="Wrap" Name="categoryNameTextBox" Canvas.Top="96" Width="172" Height="26" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Button Content="Add" Name="addCategoryButton" Canvas.Left="28" Canvas.Top="138" Height="24" Width="82" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Button Content="Delete" Name="deleteCategoryButton" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="117" Canvas.Top="138" Width="83" Height="24"/>
+            <Label Content="Name" Canvas.Left="29" Canvas.Top="66" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <DataGrid Height="265" Width="431" Name="categoriesDataGrid" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Left" Canvas.Top="214" VerticalAlignment="Center"/>
+        </Canvas>
+        <Canvas Margin="431,196,453,10" Name="ProductsCanvas" Grid.ColumnSpan="2">
+            <Label Content="Products" Name="productsLabel" FontSize="20" Canvas.Left="30" Canvas.Top="34" RenderTransformOrigin="1.421,0.541" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox Canvas.Left="30" TextWrapping="Wrap" Name="productNameTextBox" Canvas.Top="110" Width="156" Height="28" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBox Canvas.Left="210" TextWrapping="Wrap" Name="procucyPriceLabel" Canvas.Top="110" Width="156" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28"/>
+            <CheckBox Content="Toppings" Name="toppingsTextBox" Canvas.Left="32" Canvas.Top="146" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <DataGrid Height="265" Width="482" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Canvas.Top="214" VerticalAlignment="Top"/>
+            <Label Content="Name" Canvas.Left="39" Canvas.Top="75" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label Content="Price" Canvas.Left="216" Canvas.Top="77" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Button Content="Add" Name="addProductButton" Canvas.Left="36" Canvas.Top="176" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="66" RenderTransformOrigin="1.833,1.425"/>
+            <Button Content="Delete" Name="deleteProductButton" Canvas.Left="115" Canvas.Top="176" Height="26" Width="69" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="1.652,1.502"/>
+        </Canvas>
+        <Canvas Margin="242,0,0,10" Height="489" VerticalAlignment="Bottom" Grid.Column="1">
+            <Label Content="Toppings" FontSize="20"  Canvas.Left="30" Canvas.Top="28" RenderTransformOrigin="1.254,1.233" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox Canvas.Left="10" TextWrapping="Wrap" Name="toppingNameTextBox" Canvas.Top="116" Width="110" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox Canvas.Left="164" TextWrapping="Wrap" Name="toppingPriceTextBox" Canvas.Top="116" Width="108" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Button Content="Add" Name="addToppingButton" Canvas.Left="25" Canvas.Top="163" HorizontalAlignment="Left" VerticalAlignment="Center" Width="70"/>
+            <Button Content="Delete" Name="deleteToppingButton" Canvas.Left="120" Canvas.Top="163" HorizontalAlignment="Left" VerticalAlignment="Center" Width="58"/>
+            <DataGrid Height="265" Width="448" Name="toppingsDataGrid" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Canvas.Top="214" VerticalAlignment="Center"/>
+            <Label Content="Name" Canvas.Left="15" Canvas.Top="88" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Content="Extra charge" Canvas.Left="164" Canvas.Top="91" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        </Canvas>
+    </Grid>
+</Window>
