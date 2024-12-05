@@ -14,7 +14,7 @@
         mc:Ignorable="d"
         Width="1366"
         Height="711">
-    <Grid Margin="0,18,0,-18">
+    <Grid Margin="0,12,0,-12">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="560*"/>
             <ColumnDefinition Width="571*"/>
@@ -27,32 +27,46 @@
             <Button Content="Settings" Name="settingsButton" Canvas.Left="914" Height="100" Width="224" RenderTransformOrigin="-0.113,0.438" HorizontalAlignment="Center" VerticalAlignment="Top" Click="settingsButton_Click"/>
             <Button Content="Support" Name="supportButton" Canvas.Left="1142" Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Click="supportButton_Click"/>
         </Canvas>
-        <Canvas Margin="0,196,245,10" Name="categoriesCanvas">
+        <Canvas Margin="0,101,461,10" Name="categoriesCanvas">
             <Label Content="Categories" FontSize="20" Canvas.Left="28" Canvas.Top="32" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBox Canvas.Left="28" TextWrapping="Wrap" Name="categoryNameTextBox" Canvas.Top="96" Width="172" Height="26" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <Button Content="Add" Name="addCategoryButton" Canvas.Left="28" Canvas.Top="138" Height="24" Width="82" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <Button Content="Delete" Name="deleteCategoryButton" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="117" Canvas.Top="138" Width="83" Height="24"/>
-            <Label Content="Name" Canvas.Left="29" Canvas.Top="66" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <DataGrid Height="265" Width="431" Name="categoriesDataGrid" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Left" Canvas.Top="214" VerticalAlignment="Center"/>
+            <TextBox Canvas.Left="28" TextWrapping="Wrap" Name="categoryNameTextBox" Canvas.Top="112" Width="172" Height="26" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Button Content="Add" Name="addCategoryButton" Canvas.Left="28" Canvas.Top="172" Height="24" Width="82" HorizontalAlignment="Center" VerticalAlignment="Top" Click="addCategoryButton_Click"/>
+            <Button Content="Delete" Name="deleteCategoryButton" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="117" Canvas.Top="170" Width="83" Height="24" Click="deleteCategoryButton_Click"/>
+            <Label Content="Name" Canvas.Left="29" Canvas.Top="78" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <DataGrid Height="365" Width="216" Name="categoriesDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Center" Canvas.Top="214" VerticalAlignment="Top">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="Selected" Handler="DataGridRow_Selected"/>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
         </Canvas>
-        <Canvas Margin="431,196,453,10" Name="ProductsCanvas" Grid.ColumnSpan="2">
+        <Canvas Margin="218,101,450,12" Name="ProductsCanvas" Grid.ColumnSpan="2">
             <Label Content="Products" Name="productsLabel" FontSize="20" Canvas.Left="30" Canvas.Top="34" RenderTransformOrigin="1.421,0.541" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <TextBox Canvas.Left="30" TextWrapping="Wrap" Name="productNameTextBox" Canvas.Top="110" Width="156" Height="28" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <TextBox Canvas.Left="210" TextWrapping="Wrap" Name="procucyPriceLabel" Canvas.Top="110" Width="156" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28"/>
-            <CheckBox Content="Toppings" Name="toppingsTextBox" Canvas.Left="32" Canvas.Top="146" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <DataGrid Height="265" Width="482" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Canvas.Top="214" VerticalAlignment="Top"/>
-            <Label Content="Name" Canvas.Left="39" Canvas.Top="75" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <Label Content="Price" Canvas.Left="216" Canvas.Top="77" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <Button Content="Add" Name="addProductButton" Canvas.Left="36" Canvas.Top="176" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="66" RenderTransformOrigin="1.833,1.425"/>
-            <Button Content="Delete" Name="deleteProductButton" Canvas.Left="115" Canvas.Top="176" Height="26" Width="69" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="1.652,1.502"/>
+            <TextBox Canvas.Left="210" TextWrapping="Wrap" Name="productPriceTextBox" Canvas.Top="110" Width="156" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28"/>
+            <CheckBox Content="Toppings" Name="toppingsCheckBox" Canvas.Left="394" Canvas.Top="86" HorizontalAlignment="Left" VerticalAlignment="Center" Checked="toppingsCheckBox_Checked"/>
+            <DataGrid  Height="368" Width="698" Name="productsDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Center" Canvas.Top="216" VerticalAlignment="Top"/>
+            <Label Content="Name" Canvas.Left="31" Canvas.Top="75" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Content="Price" Canvas.Left="210" Canvas.Top="77" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Button Content="Add" Name="addProductButton" Canvas.Left="30" Canvas.Top="176" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="66" RenderTransformOrigin="1.833,1.425" Click="addProductButton_Click"/>
+            <Button Content="Delete" Name="deleteProductButton" Canvas.Left="115" Canvas.Top="174" Height="26" Width="69" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="1.652,1.502" Click="deleteProductButton_Click"/>
+            <Label Content="Category" Name="productCategoryLabel" Canvas.Left="559" Canvas.Top="82" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="5.78,-1.193"/>
+            <TextBlock Canvas.Left="394" Name="productToppingsTextBlock" TextWrapping="Wrap"  Canvas.Top="111" Height="59" Width="153" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Canvas>
-        <Canvas Margin="242,0,0,10" Height="489" VerticalAlignment="Bottom" Grid.Column="1">
+        <Canvas Margin="242,0,0,10" Height="584" VerticalAlignment="Bottom" Grid.Column="1">
             <Label Content="Toppings" FontSize="20"  Canvas.Left="30" Canvas.Top="28" RenderTransformOrigin="1.254,1.233" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <TextBox Canvas.Left="10" TextWrapping="Wrap" Name="toppingNameTextBox" Canvas.Top="116" Width="110" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBox Canvas.Left="164" TextWrapping="Wrap" Name="toppingPriceTextBox" Canvas.Top="116" Width="108" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <Button Content="Add" Name="addToppingButton" Canvas.Left="25" Canvas.Top="163" HorizontalAlignment="Left" VerticalAlignment="Center" Width="70"/>
-            <Button Content="Delete" Name="deleteToppingButton" Canvas.Left="120" Canvas.Top="163" HorizontalAlignment="Left" VerticalAlignment="Center" Width="58"/>
-            <DataGrid Height="265" Width="448" Name="toppingsDataGrid" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Canvas.Top="214" VerticalAlignment="Center"/>
+            <Button Content="Add" Name="addToppingButton" Canvas.Left="25" Canvas.Top="163" HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Click="addToppingButton_Click"/>
+            <Button Content="Delete" Name="deleteToppingButton" Canvas.Left="120" Canvas.Top="163" HorizontalAlignment="Left" VerticalAlignment="Center" Width="58" Click="deleteToppingButton_Click"/>
+            <DataGrid Height="365" Width="448" Name="toppingsDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Center" Canvas.Top="214" VerticalAlignment="Top" Canvas.Left="2">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="Selected" Handler="DataGridRow_Selected_1"/>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
             <Label Content="Name" Canvas.Left="15" Canvas.Top="88" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <Label Content="Extra charge" Canvas.Left="164" Canvas.Top="91" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Canvas>

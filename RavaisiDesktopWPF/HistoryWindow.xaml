@@ -30,8 +30,14 @@
         <Canvas Name="datePickerCanvas" Margin="0,88,31,0">
             <DatePicker Name="startDatePicker" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="19" Canvas.Top="138"/>
             <DatePicker Name="endDatePicker" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="191" Canvas.Top="138"/>
-            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Height="305" Canvas.Top="268" Width="645" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <Button Content="Enter" Canvas.Left="24" Canvas.Top="222" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" Width="62"/>
+            <DataGrid  Height="305" ItemsSource="{Binding}" Name="ordersDataGrid" Canvas.Top="268" Width="645" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="Selected" Handler="DataGridRow_Selected"/>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
+            <Button Content="Apply" Name="applyButton" Click="applyButton_Click" Canvas.Left="24" Canvas.Top="222" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" Width="70" />
         </Canvas>
 
         <Canvas Name="OrderCanvas" Background="Beige" Grid.Column="1" Width="400" Margin="0,128,2,232" HorizontalAlignment="Right">

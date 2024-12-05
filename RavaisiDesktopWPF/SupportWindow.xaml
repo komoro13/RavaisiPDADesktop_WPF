@@ -30,8 +30,13 @@
         <Image Height="100" Width="100" Margin="52,384,524,211"/>
         <Image HorizontalAlignment="Left" Height="100" Margin="198,376,0,0" VerticalAlignment="Top" Width="100"/>
         <Label Content="Message" FontSize="20" HorizontalAlignment="Left" Margin="170,245,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="170,292,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="181" Width="265"/>
+        <TextBlock HorizontalAlignment="Left" Margin="170,292,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="184" Width="303"/>
         <Button Content="Send" HorizontalAlignment="Left" Margin="170,508,0,0" VerticalAlignment="Top" Height="30" Width="88"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="478,227,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="368" Width="390"/>
+        <Canvas Grid.Column="1" Name="diagnosticsCanvas" Margin="218,139,10,12">
+            <Button Content="Button" Canvas.Left="40" Canvas.Top="38" Height="48" Width="135"/>
+            <Label Content="results" Name="resultsLabel"  Canvas.Left="40" Canvas.Top="116"/>
+        </Canvas>
 
 
     </Grid>

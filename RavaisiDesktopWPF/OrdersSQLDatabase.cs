@@ -65,6 +65,7 @@ namespace RavaisiDesktopWPF
             }
             return result;
         }
+        
         static public DataRow[] getRowsArray(string sql)
         {
             MySqlConnection connect = new MySqlConnection();

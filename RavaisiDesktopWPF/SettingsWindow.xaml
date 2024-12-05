@@ -14,7 +14,7 @@
         mc:Ignorable="d"
         Width="1366"
         Height="711">
-    <Grid Margin="0,20,0,-20">
+    <Grid Margin="0,56,0,-56">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="560*"/>
             <ColumnDefinition Width="571*"/>
@@ -37,7 +37,14 @@
         <Image Height="100" Width="100" Margin="52,384,524,211"/>
         <Image HorizontalAlignment="Left" Height="100" Margin="198,376,0,0" VerticalAlignment="Top" Width="100"/>
         <Label Content="Button colors" FontSize="20"  HorizontalAlignment="Left" Margin="32,496,0,0" VerticalAlignment="Top"/>
-        <Label Content="Database Hostname" HorizontalAlignment="Left" Margin="428,148,0,0" VerticalAlignment="Top"/>
+        <Label Content="Database Hostname" HorizontalAlignment="Left" Margin="372,205,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Content="Language" HorizontalAlignment="Left" Margin="380,160,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="378,191,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="User settings" HorizontalAlignment="Left" Margin="114,363,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Content="Change password" HorizontalAlignment="Left" Margin="114,404,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="114,444,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="114,479,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="114,514,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
 
     </Grid>
 </Window>

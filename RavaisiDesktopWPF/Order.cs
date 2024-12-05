@@ -47,7 +47,7 @@ namespace RavaisiDesktopWPF
         public bool printed;
         public bool mergedOrders;
         string stringToPrint;
-
+       
         
         bool setHeader = false;
 
@@ -86,6 +86,11 @@ namespace RavaisiDesktopWPF
             return rows.Length;
         }
         
+        private string getHistoryOrderString()
+        {
+            string sql = $"SELECT order_string FROM orders WHERE id={this.orderId}";
+            return OrdersSQLDatabase.GetString(sql);
+        }
         public ArrayList getUnprintedIndices()
         {
             ArrayList indices = new ArrayList();
@@ -208,6 +213,21 @@ namespace RavaisiDesktopWPF
             }
             return buttons;
         }
+
+        public List<Button> GetButtonsH()
+        {
+            List<Button> buttons = new List<Button>();
+            ArrayList list = getAddedOrder(getHistoryOrderString());
+            foreach (Product product in list)
+            {
+                Button button = CopontentsConstructors.createButton(product.GetString(), "button", (s, e) => setSelectedProduct(s, e, product));
+                button.HorizontalContentAlignment = HorizontalAlignment.Left;
+                buttons.Add(button);
+            }
+            return buttons;
+        }
+
+
         public float getPrice()
         {
             //This method return the price of the order in float type

@@ -370,19 +370,11 @@ namespace RavaisiDesktopWPF
             selectedOrder.showDialog();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void productsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ProductsWindow window = new ProductsWindow();
+            window.Show();
+            this.Close();
         }
 
         private void settingsButton_Click(object sender, RoutedEventArgs e)
@@ -397,7 +389,9 @@ namespace RavaisiDesktopWPF
 
         private void historyButton_Click(object sender, RoutedEventArgs e)
         {
-
+            HistoryWindow window = new HistoryWindow();
+            window.Show();
+            this.Close();
         }
 
         private void supportButton_Click(object sender, RoutedEventArgs e)
