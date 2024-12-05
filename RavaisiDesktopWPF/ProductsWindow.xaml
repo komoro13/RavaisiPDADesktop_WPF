@@ -20,7 +20,7 @@
             <ColumnDefinition Width="571*"/>
         </Grid.ColumnDefinitions>
         <!--Width of Table canvas is 875 as each table btn has width of 200 and margin 15 4 buttons per row: 4*200 + 5*15 = 800 + 75 -->
-        <Canvas Name="NavBarCanvas" Background="Azure"  Height="100" Grid.ColumnSpan="2" Margin="0,1,0,594" HorizontalAlignment="Right" Width="1366">
+        <Canvas Name="NavBarCanvas" Background="Azure"  Height="100" Grid.ColumnSpan="2" Margin="0,-11,0,606" HorizontalAlignment="Right" Width="1366">
             <Button Content="Orders" Name="ordersButton" Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="230" Click="ordersButton_Click"/>
             <Button Content="Products" Name="productsButton" Canvas.Left="458" Height="100" Width="224" RenderTransformOrigin="0.447,0.448" HorizontalAlignment="Center" VerticalAlignment="Top" Click="productsButton_Click"/>
             <Button Content="History" Name="historyButton"  Canvas.Left="686"  Height="100" Width="224" HorizontalAlignment="Center" VerticalAlignment="Top" Click="historyButton_Click"/>

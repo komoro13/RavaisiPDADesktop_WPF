@@ -31,17 +31,23 @@ namespace RavaisiDesktopWPF
 
         private void ordersButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow window = new MainWindow();
+            window.Show();
+            this.Close();
         }
 
         private void productsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ProductsWindow window = new ProductsWindow();
+            window.Show();
+            this.Close();
         }
 
         private void historyButton_Click(object sender, RoutedEventArgs e)
         {
-
+            HistoryWindow window = new HistoryWindow();
+            window.Show();
+            this.Close();
         }
 
         private void settingsButton_Click(object sender, RoutedEventArgs e)
@@ -51,7 +57,9 @@ namespace RavaisiDesktopWPF
 
         private void supportButton_Click(object sender, RoutedEventArgs e)
         {
-
+            SupportWindow window = new SupportWindow();
+            window.Show();
+            this.Hide();
         }
     }
 }

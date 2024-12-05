@@ -117,11 +117,15 @@ namespace RavaisiDesktopWPF
 
         private void settingsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            SettingsWindow window = new SettingsWindow();
+            window.Show();
+            this.Close();
         }
         private void supportButton_Click(object sender, RoutedEventArgs e)
         {
-
+            SupportWindow window = new SupportWindow();
+            window.Show();
+            this.Close();
         }
 
         private void addCategoryButton_Click(object sender, RoutedEventArgs e)
