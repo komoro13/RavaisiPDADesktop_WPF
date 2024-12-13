@@ -53,7 +53,7 @@ Specify the path to your XAMPP installation for proper database connectivity.
 
 ### Orders page
 
-<img src="rsc/orders_screen.png">
+<img src="rsc/orders_screen_full.png">
 
  Main Window: The primary interface for managing orders. On the left is the Tables Canvas, displaying the buttons for each table. On the 
  right is the Order Canvas, featuring the TabControl that shows current orders and provides options to view, print, or close each order.
