@@ -53,14 +53,6 @@ Specify the path to your XAMPP installation for proper database connectivity.
 
 ### Orders page
 <img src="rsc/orders_screen.png">
-*Explanation*
-Functionality: This method runs an infinite loop that checks for new orders, loaded orders, and active orders.
-* Notifications:
-  * When a new order is detected, it plays a notification sound to alert the kitchen staff.
-Updating Orders:
-  * The method uses Dispatcher.Invoke to safely update the UI elements from the background thread, refreshing the orders displayed.
-* Conditions:
-  * The method checks for new orders, loaded orders, and active orders to ensure the interface reflects the current state of the kitchen.
 
 ### Main loop
 ```c#
