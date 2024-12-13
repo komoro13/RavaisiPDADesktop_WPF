@@ -53,7 +53,14 @@ Specify the path to your XAMPP installation for proper database connectivity.
 
 ### Orders page
 <img src="rsc/orders_screen.png">
-
+*Explanation*
+Functionality: This method runs an infinite loop that checks for new orders, loaded orders, and active orders.
+* Notifications:
+  * When a new order is detected, it plays a notification sound to alert the kitchen staff.
+Updating Orders:
+  * The method uses Dispatcher.Invoke to safely update the UI elements from the background thread, refreshing the orders displayed.
+* Conditions:
+  * The method checks for new orders, loaded orders, and active orders to ensure the interface reflects the current state of the kitchen.
 
 ### Main loop
 ```c#
@@ -83,6 +90,16 @@ private bool checkForChanges()
 
 }
 ```
+#### Explanation
+* **Functionality:**
+  * This method runs an infinite loop that checks for new orders, loaded orders, and active orders.
+* **Notifications**:
+  * When a new order is detected, it plays a notification sound to alert the kitchen staff.
+* **Updating Orders**:
+  * The method uses Dispatcher.Invoke to safely update the UI elements from the background thread, refreshing the orders displayed.
+* **Conditions**:
+  * The method checks for new orders, loaded orders, and active orders to ensure the interface reflects the current state of the kitchen.
+This method is crucial for providing real-time updates and notifications to kitchen staff upon receiving new orders.
 ### Load orders
 ```c#
 public void getOrders(string cmd)
@@ -108,6 +125,12 @@ public void getOrders(string cmd)
     }            
 }
 ```
+### Explanation
+**Functionality**: This method retrieves orders from the database as order strings using the provided SQL command.
+**Data Conversion**: Each order string is converted into an Order object, ensuring that all relevant details (like price and status) are included.
+**Main Orders List Update**: The method adds each constructed order to the main list of Order objects for easy access and management of current orders.
+**Database Structure**: For more information about the database structure and order serialization, please visit [RavaisiPHP](https://github.com/komoro13/RavaisiPHP)
+
 ## Usage
 ### Orders 
 * The program displays the loaded orders in the main interface.
